@@ -6,6 +6,8 @@ public class PlayerGravity : Variables
 {
     private void FixedUpdate()
     {
-        gameObject.transform.Translate(gravityDirection * gravityForce * Time.deltaTime,Space.World);
+        gameObject.GetComponent<Rigidbody>().AddForce(
+            gravityDirection * gravityForce * Time.fixedDeltaTime, 
+            ForceMode.Force);
     }
 }
