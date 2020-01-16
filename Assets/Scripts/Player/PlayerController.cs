@@ -12,8 +12,13 @@ public class PlayerController : PlayerRay
         else
             mult = Time.fixedDeltaTime * walkSpeed;
 
-        Move(new Vector3(Input.GetAxis("Horizontal") * mult,0, Input.GetAxis("Vertical") * mult));
-      
+        Move(new Vector3(Input.GetAxis("Horizontal") * mult, 0, Input.GetAxis("Vertical") * mult));
+    }
+    private void Update()
+    {
         if(Input.GetKeyDown(KeyCode.Space)) Jump();
+        LookHorizon(Input.GetAxis("Mouse X") * Time.deltaTime);
+        LookVertical(Input.GetAxis("Mouse Y") * Time.deltaTime);
+        //Debug.Log(Input.GetAxis("Mouse Y"));
     }
 }

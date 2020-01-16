@@ -141,7 +141,7 @@ GameObject:
   - component: {fileID: 393170711}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -230,7 +230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393170705}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.71, z: 0}
+  m_LocalPosition: {x: 0, y: 2.69, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 963194228}
@@ -250,6 +250,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 180a9ad94d0e69748ad9bdc8a66922b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCamera: {fileID: 963194227}
   step: {fileID: 1575602378}
 --- !u!114 &393170712
 MonoBehaviour:
@@ -263,6 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b4fd8cf9ae55076409b8ff499ce4dd7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCamera: {fileID: 963194227}
   step: {fileID: 1575602378}
 --- !u!114 &393170713
 MonoBehaviour:
@@ -276,6 +278,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c306b4f6d77c604aa095153708132e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCamera: {fileID: 963194227}
 --- !u!114 &393170714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -300,6 +303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38ef37f1e91613c4f92723c68bebf783, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  myCamera: {fileID: 963194227}
   step: {fileID: 1575602378}
 --- !u!114 &393170716
 MonoBehaviour:

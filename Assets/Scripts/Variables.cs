@@ -5,15 +5,18 @@ using UnityEngine;
 public class Variables : MonoBehaviour
 {
     //Force to jump
-    protected float jumpForce = 5f;
+    protected static float jumpForce = 5f;
     //grabbing force against a surface
-    protected float catchForce;
+    protected static float catchForce;
 
-    protected float walkSpeed = 5f;
-    protected float runSpeed = 10f;
+    protected static float walkSpeed = 5f;
+    protected static float runSpeed = 10f;
 
-    protected float gravityForce = 981f;
-    protected Vector3 gravityDirection = Vector3.down;
+    protected static float rotSpeedX = 50f;
+    protected static float rotSpeedY = 50f;
 
-    protected bool canJump = false;
+    protected static float gravityForce = 981f;
+    protected static Vector3 gravityDirection = Vector3.down;
+
+    protected static bool canJump = false;
 }
