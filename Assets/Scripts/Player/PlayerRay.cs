@@ -24,8 +24,6 @@ public class PlayerRay : PlayerMove
             canJump = false;
         }
         //Debug.DrawRay(step.position, transform.TransformDirection(Vector3.down), Color.red);
-        //Debug.Log(hit.distance < 0.1);
-        //Debug.Log(Physics.Raycast(ray, out hit, Mathf.Infinity));
     }
     protected void Jump()
     {
@@ -35,8 +33,5 @@ public class PlayerRay : PlayerMove
                 transform.TransformDirection(Vector3.up) * jumpForce,
                 ForceMode.Impulse);
         }
-        //Debug.Log("saut" + transform.TransformDirection(Vector3.up) * jumpForce);
-        //Debug.Log(gameObject.tag);
-        //Debug.Log(canJump);
     }
 }

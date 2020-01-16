@@ -5,7 +5,7 @@ using UnityEngine;
 public class Variables : MonoBehaviour
 {
     //Force to jump
-    protected static float jumpForce = 5f;
+    protected static float jumpForce = 10f;
     //grabbing force against a surface
     protected static float catchForce;
 

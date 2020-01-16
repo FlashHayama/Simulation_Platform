@@ -18,7 +18,7 @@ public class PlayerMove : Variables
     }
     protected void LookHorizon(float horizontal)
     {
-        gameObject.transform.Rotate(Vector3.up, horizontal * rotSpeedX);
+        gameObject.transform.Rotate(transform.TransformDirection(Vector3.up), horizontal * rotSpeedX);
     }
     protected void LookVertical(float vertical)
     {
