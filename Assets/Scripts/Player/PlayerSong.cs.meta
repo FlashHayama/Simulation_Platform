@@ -3,7 +3,9 @@ guid: 180a9ad94d0e69748ad9bdc8a66922b6
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - jumpSong: {fileID: 8300000, guid: 5897aeed9b676024fbb8c694b421a861, type: 3}
+  - source: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

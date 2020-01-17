@@ -7,12 +7,17 @@ public class PlayerAnimation : Variables
     public Animator animator;
     void Update()
     {
-        if(Input.GetKey(KeyCode.LeftShift) && Input.GetAxis("Vertical") > 0 && Input.GetAxis("Horizontal") == 0 && canJump)
+        WalkAnimation();
+    }
+    private void WalkAnimation()
+    {
+        Debug.Log(canJump);
+        if(Input.GetKey(KeyCode.LeftShift) && Input.GetAxis("Vertical") > 0 && canJump && canForward)
         {
             animator.SetBool("Run", true);
             animator.SetBool("Walk", false);
         }
-        else if((Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0) && canJump)
+        else if((Input.GetAxis("Vertical") != 0 || Input.GetAxis("Horizontal") != 0) && canJump && canForward)
         {
             animator.SetBool("Run", false);
             animator.SetBool("Walk", true);

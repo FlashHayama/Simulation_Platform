@@ -8,13 +8,15 @@ public class PlayerMove : Variables
     float yRot = 0.0f;
     float yMinLimit = -70.0f;
     float yMaxLimit = 70.0f;
+    
     /// <summary>
     /// Default movement forward, backward, left, right
     /// </summary>
     /// <param name="Direction">X,Y,Z</param>
     protected void Move(Vector3 Direction)
     {
-        gameObject.transform.Translate(Direction);
+        if (!canForward && Input.GetAxis("Vertical") > 0) Direction.z = 0f;
+        gameObject.transform.Translate(Direction * Time.fixedDeltaTime);
     }
     protected void LookHorizon(float horizontal)
     {

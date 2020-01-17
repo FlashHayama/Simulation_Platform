@@ -8,10 +8,29 @@ public class PlayerSong : Variables
     [SerializeField]
     AudioClip[] stepSong = new AudioClip[4];
     [SerializeField]
+    AudioClip jumpSong,landSong;
+    [SerializeField]
     AudioSource source;
     public void PlayStep()
     {
-        rand = Random.Range(0, 3);
-        source.PlayOneShot(stepSong[rand]);
+        if (canJump)
+        {
+            rand = Random.Range(0, 3);
+            source.clip = stepSong[rand];
+            source.Play();
+        }
     }
+    public void PlayJump()
+    {
+        source.clip = jumpSong;
+        source.Play();
+    }
+    /*public void PlayLand()
+    {
+        if (!canJump)
+        {
+            source.clip = landSong;
+            source.Play();
+        }
+    }*/
 }

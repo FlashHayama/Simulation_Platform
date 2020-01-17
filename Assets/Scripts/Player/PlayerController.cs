@@ -12,22 +12,28 @@ public class PlayerController : PlayerRay
     }
     private void FixedUpdate()
     {
-        Move(new Vector3(Input.GetAxis("Horizontal") * mult, 0, Input.GetAxis("Vertical") * mult));
+        if(canMove)
+        {
+            Move(new Vector3(Input.GetAxis("Horizontal") * mult, 0, Input.GetAxis("Vertical") * mult));
+        }
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Space)) Jump();
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            Jump();
+            TryCatch();
+        }
         LookHorizon(Input.GetAxis("Mouse X") * Time.deltaTime);
         LookVertical(Input.GetAxis("Mouse Y") * Time.deltaTime);
         
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetAxis("Vertical") > 0)
         {
-            mult = Time.deltaTime * runSpeed;
+            mult = runSpeed;
         }
         else
         {
-            mult = Time.fixedDeltaTime * walkSpeed;
+            mult = walkSpeed;
         }
-
     }
 }
