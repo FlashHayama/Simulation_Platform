@@ -16,11 +16,11 @@ public class PlayerMove : Variables
     protected void Move(Vector3 Direction)
     {
         if (!canForward && Input.GetAxis("Vertical") > 0) Direction.z = 0f;
-        gameObject.transform.Translate(Direction * Time.fixedDeltaTime);
+            cont.transform.Translate(transform.TransformDirection(Direction) * Time.fixedDeltaTime,Space.World);
     }
     protected void LookHorizon(float horizontal)
     {
-        gameObject.transform.Rotate(transform.TransformDirection(Vector3.up), horizontal * rotSpeedX);
+        gameObject.transform.Rotate(Vector3.up, horizontal * rotSpeedX,Space.Self);
     }
     protected void LookVertical(float vertical)
     {

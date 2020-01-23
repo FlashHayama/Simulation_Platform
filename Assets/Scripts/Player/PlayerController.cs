@@ -36,4 +36,5 @@ public class PlayerController : PlayerRay
             mult = walkSpeed;
         }
     }
+    
 }
