@@ -20,8 +20,8 @@ public class PlayerGravity : Variables
             changeSpeed * Time.fixedDeltaTime);
 
         
-        Debug.Log("rot" + quaternion.eulerAngles);
-        Debug.Log("view" + transform.rotation.eulerAngles);
+        //Debug.Log("rot" + quaternion.eulerAngles);
+        //Debug.Log("view" + transform.rotation.eulerAngles);
 
         cont.transform.rotation = quaternion;
     }

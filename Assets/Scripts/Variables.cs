@@ -23,7 +23,7 @@ public class Variables : MonoBehaviour
     protected static bool canJump = false;
     protected static bool canCatch = false;
     protected static bool canMove = true;
-    protected static bool canForward = true;
+    protected static bool canForward = false;
 
     public GameObject cont;
 

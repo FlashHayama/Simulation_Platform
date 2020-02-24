@@ -11,7 +11,7 @@ public class PlayerAnimation : Variables
     }
     private void WalkAnimation()
     {
-        Debug.Log(canJump);
+        //Debug.Log(canJump);
         if(Input.GetKey(KeyCode.LeftShift) && Input.GetAxis("Vertical") > 0 && canJump && canForward)
         {
             animator.SetBool("Run", true);

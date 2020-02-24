@@ -15,8 +15,10 @@ public class PlayerMove : Variables
     /// <param name="Direction">X,Y,Z</param>
     protected void Move(Vector3 Direction)
     {
+        Debug.Log("canforward = " + canForward);
         if (!canForward && Input.GetAxis("Vertical") > 0) Direction.z = 0f;
-            cont.transform.Translate(transform.TransformDirection(Direction) * Time.fixedDeltaTime,Space.World);
+
+        cont.transform.Translate(transform.TransformDirection(Direction) * Time.fixedDeltaTime,Space.World);
     }
     protected void LookHorizon(float horizontal)
     {

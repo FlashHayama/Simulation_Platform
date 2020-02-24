@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRay : PlayerMove
+public class PlayerRay : Variables
 {
     [SerializeField]
     Transform step;
@@ -11,79 +11,37 @@ public class PlayerRay : PlayerMove
     [SerializeField]
     Transform torso;
 
-    Ray ray,ray2;
+    Ray ray;
     RaycastHit hit;
     private void Update()
     {
-        JumpRay();
-        ForwardRay();
-    }
-    protected void Jump()
-    {
-        if(canJump)
-        {
-            GetComponent<PlayerSong>().PlayJump();
-            cont.GetComponent<Rigidbody>().velocity = new Vector3(0, 0);
-            cont.GetComponent<Rigidbody>().AddForce(
-                transform.TransformDirection(Vector3.up) * jumpForce,
-                ForceMode.Impulse);
-        }
-    }
-    protected void TryCatch()
-    {
-        if(canCatch)
-        {
-            GetComponent<PlayerSong>().PlayJump();
-            cont.GetComponent<Rigidbody>().velocity = new Vector3(0, 0);
-            cont.GetComponent<Rigidbody>().AddForce(
-                transform.TransformDirection(Vector3.up) * catchForce,
-                ForceMode.Impulse);
-        }
-    }
-    private void JumpRay()
-    {
-        ray = new Ray(step.position, transform.TransformDirection(Vector3.down));
+        float distance;
+        canJump = DefaultRay(step, Vector3.down, out distance) && distance < 0.1;
 
-        if (Physics.Raycast(ray, out hit, Mathf.Infinity) && hit.distance < 0.1)
+        canForward = (!(DefaultRay(torso, Vector3.forward, out distance) && distance < 0.5) && 
+            !(DefaultRay(head, Vector3.forward, out distance) && distance < 0.5)) || 
+            !(hit.collider.tag != "GravityChange");
+        
+        canCatch = (DefaultRay(torso, Vector3.forward, out distance) && hit.distance < 0.5) && !DefaultRay(head, Vector3.forward, out distance) && !canJump;
+
+        if (cont.GetComponent<Rigidbody>().velocity.y < -5 && canCatch)
+            cont.GetComponent<Rigidbody>().velocity = new Vector3(0, 0);
+    }
+
+    private bool DefaultRay(Transform target, Vector3 dir,out float distance)
+    {
+        ray = new Ray(target.position, transform.TransformDirection(dir));
+        Debug.DrawRay(target.position, transform.TransformDirection(dir), Color.red);
+        if (Physics.Raycast(ray, out hit, 2))
         {
             //GetComponent<PlayerSong>().PlayLand();
-            canJump = true;
+            distance = hit.distance;
+            return true;
         }
         else
         {
-            canJump = false;
-        }
-        Debug.DrawRay(step.position, transform.TransformDirection(Vector3.down), Color.red);
-        //Debug.Log("step :" + Physics.Raycast(ray, 2));
-        //Debug.Log(hit.distance);
-    }
-    private void ForwardRay()
-    {
-        ray = new Ray(head.position, transform.TransformDirection(Vector3.forward));
-        ray2 = new Ray(torso.position, transform.TransformDirection(Vector3.forward));
-
-        if (Physics.Raycast(ray2, out hit, 2) && hit.distance < 0.5 && !Physics.Raycast(ray, 2) && !canJump)
-        {
-            canCatch = true;
-
-            if (cont.GetComponent<Rigidbody>().velocity.y < -5)
-                cont.GetComponent<Rigidbody>().velocity = new Vector3(0, 0);
-        }
-        else
-        {
-            canCatch = false;
-        }
-        if (((Physics.Raycast(ray2, out hit, 1) && hit.distance < 0.5) || (Physics.Raycast(ray, out hit, 1) && hit.distance < 0.5)) && hit.collider.tag != "GravityChange")
-        {
-            canForward = false;
-        }
-        else
-        {
-            canForward = true;
-        }
-        //Debug.Log(Physics.Raycast(ray, 2));
-        //Debug.Log("head :" + !Physics.Raycast(ray, 2));
-        Debug.DrawRay(head.position, transform.TransformDirection(Vector3.forward), Color.red);
-        Debug.DrawRay(torso.position, transform.TransformDirection(Vector3.forward), Color.red);
+            distance = hit.distance;
+            return false;
+        }   
     }
 }

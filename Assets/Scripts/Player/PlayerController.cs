@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : PlayerRay
+public class PlayerController : PlayerMove
 {
     float mult;
     private void Start()
@@ -21,8 +21,9 @@ public class PlayerController : PlayerRay
     {
         if (Input.GetKeyDown(KeyCode.Space))
         {
-            Jump();
-            TryCatch();
+            //Debug.Log("jump =" + canJump);
+            GetComponent<PlayerJump>().Jump(jumpForce,canJump);
+            GetComponent<PlayerJump>().Jump(catchForce,canCatch);
         }
         LookHorizon(Input.GetAxis("Mouse X") * Time.deltaTime);
         LookVertical(Input.GetAxis("Mouse Y") * Time.deltaTime);
