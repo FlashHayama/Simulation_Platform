@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerController : PlayerMove
+public class PlayerController : MonoBehaviour
 {
+    public GameObject cont;
     float mult;
     private void Start()
     {
@@ -12,9 +13,9 @@ public class PlayerController : PlayerMove
     }
     private void FixedUpdate()
     {
-        if(canMove)
+        if(GetComponent<PlayerRay>().canMove)
         {
-            Move(new Vector3(Input.GetAxis("Horizontal") * mult, 0, Input.GetAxis("Vertical") * mult));
+            GetComponent<PlayerMove>().Move(new Vector3(Input.GetAxis("Horizontal") * mult, 0, Input.GetAxis("Vertical") * mult));
         }
     }
     private void Update()
@@ -22,20 +23,19 @@ public class PlayerController : PlayerMove
         if (Input.GetKeyDown(KeyCode.Space))
         {
             //Debug.Log("jump =" + canJump);
-            GetComponent<PlayerJump>().Jump(jumpForce,canJump);
-            GetComponent<PlayerJump>().Jump(catchForce,canCatch);
+            GetComponent<PlayerJump>().Jump(GetComponent<PlayerJump>().jumpForce, GetComponent<PlayerRay>().canJump);
+            GetComponent<PlayerJump>().Jump(GetComponent<PlayerJump>().catchForce, GetComponent<PlayerRay>().canCatch);
         }
-        LookHorizon(Input.GetAxis("Mouse X") * Time.deltaTime);
-        LookVertical(Input.GetAxis("Mouse Y") * Time.deltaTime);
+        GetComponent<PlayerMove>().LookHorizon(Input.GetAxis("Mouse X") * Time.deltaTime);
+        GetComponent<PlayerMove>().LookVertical(Input.GetAxis("Mouse Y") * Time.deltaTime);
         
         if (Input.GetKey(KeyCode.LeftShift) && Input.GetAxis("Vertical") > 0)
         {
-            mult = runSpeed;
+            mult = GetComponent<PlayerMove>().runSpeed;
         }
         else
         {
-            mult = walkSpeed;
+            mult = GetComponent<PlayerMove>().walkSpeed;
         }
-    }
-    
+    }   
 }

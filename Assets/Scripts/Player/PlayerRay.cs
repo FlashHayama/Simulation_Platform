@@ -2,8 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerRay : Variables
+public class PlayerRay : MonoBehaviour
 {
+    public bool canJump = false;
+    public bool canCatch = false;
+    public bool canMove = true;
+    public bool canForward = false;
+
     [SerializeField]
     Transform step;
     [SerializeField]
@@ -13,6 +18,13 @@ public class PlayerRay : Variables
 
     Ray ray;
     RaycastHit hit;
+
+    private GameObject cont;
+
+    private void Start()
+    {
+        cont = GetComponent<PlayerController>().cont;
+    }
     private void Update()
     {
         float distance;

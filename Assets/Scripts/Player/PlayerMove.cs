@@ -2,29 +2,41 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerMove : Variables
+public class PlayerMove : MonoBehaviour
 {
+    public float walkSpeed = 5f;
+    public float runSpeed = 10f;
+
+    public float rotSpeedX = 100f;
+    public float rotSpeedY = 100f;
+
     public Camera myCamera;
+
     float yRot = 0.0f;
     float yMinLimit = -70.0f;
     float yMaxLimit = 70.0f;
-    
+
+    private GameObject cont;
+    private void Start()
+    {
+        cont = GetComponent<PlayerController>().cont;
+    }
     /// <summary>
     /// Default movement forward, backward, left, right
     /// </summary>
     /// <param name="Direction">X,Y,Z</param>
-    protected void Move(Vector3 Direction)
+    public void Move(Vector3 Direction)
     {
-        Debug.Log("canforward = " + canForward);
-        if (!canForward && Input.GetAxis("Vertical") > 0) Direction.z = 0f;
+        Debug.Log("canforward = " + GetComponent<PlayerRay>().canForward);
+        if (!GetComponent<PlayerRay>().canForward && Input.GetAxis("Vertical") > 0) Direction.z = 0f;
 
         cont.transform.Translate(transform.TransformDirection(Direction) * Time.fixedDeltaTime,Space.World);
     }
-    protected void LookHorizon(float horizontal)
+    public void LookHorizon(float horizontal)
     {
         gameObject.transform.Rotate(Vector3.up, horizontal * rotSpeedX,Space.Self);
     }
-    protected void LookVertical(float vertical)
+    public void LookVertical(float vertical)
     {
         yRot += vertical * rotSpeedY;
         yRot = Mathf.Clamp(yRot, yMinLimit, yMaxLimit);

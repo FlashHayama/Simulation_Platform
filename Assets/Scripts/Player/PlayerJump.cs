@@ -2,10 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerJump : Variables
+public class PlayerJump : MonoBehaviour
 {
+    public float jumpForce = 10f;
+    public float catchForce = 10f;
+
+    private GameObject cont;
+    private void Start()
+    {
+        catchForce = GetComponent<PlayerGravity>().gravityForce / 90;
+        cont = GetComponent<PlayerController>().cont;
+    }
     public void Jump(float force, bool can)
     {
+        
         if (can)
         {
             GetComponent<PlayerSong>().PlayJump();

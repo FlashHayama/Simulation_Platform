@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerSong : Variables
+public class PlayerSong : MonoBehaviour
 {
     int rand;
     [SerializeField]
@@ -13,7 +13,7 @@ public class PlayerSong : Variables
     AudioSource source;
     public void PlayStep()
     {
-        if (canJump)
+        if (GetComponent<PlayerRay>().canJump)
         {
             rand = Random.Range(0, 3);
             source.clip = stepSong[rand];

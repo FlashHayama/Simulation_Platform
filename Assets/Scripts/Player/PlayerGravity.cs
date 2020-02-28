@@ -2,9 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerGravity : Variables
+public class PlayerGravity : MonoBehaviour
 {
-    
+    public float gravityForce = 981f;
+    public float changeSpeed = 2f;
+    public Quaternion rotation = Quaternion.identity;
+    public Vector3 gravityDirection = Vector3.down;
+
+    private GameObject cont;
+
+    private void Start()
+    {
+        cont = GetComponent<PlayerController>().cont;
+    }
     private void FixedUpdate()
     {
         cont.GetComponent<Rigidbody>().AddForce(
