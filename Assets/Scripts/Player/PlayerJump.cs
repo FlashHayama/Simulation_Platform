@@ -4,24 +4,27 @@ using UnityEngine;
 
 public class PlayerJump : MonoBehaviour
 {
-    public float jumpForce = 10f;
-    public float catchForce = 10f;
+    [SerializeField] private float jumpForce = 10f;
+    [SerializeField] private float catchForce = 10f;
 
     private GameObject cont;
+
+    public float JumpForce { get => jumpForce; }
+    public float CatchForce { get => catchForce; set => catchForce = value; }
+
     private void Start()
     {
-        catchForce = GetComponent<PlayerGravity>().gravityForce / 90;
+        CatchForce = GetComponent<PlayerGravity>().GravityForce / 90;
         cont = GetComponent<PlayerController>().cont;
     }
-    public void Jump(float force, bool can)
-    {
-        
+    public void Jump(float force, bool can,Vector3 vector)
+    {       
         if (can)
         {
             GetComponent<PlayerSong>().PlayJump();
-            cont.GetComponent<Rigidbody>().velocity = new Vector3(0, 0);
+            cont.GetComponent<Rigidbody>().velocity = Vector3.zero;
             cont.GetComponent<Rigidbody>().AddForce(
-                transform.TransformDirection(Vector3.up) * force,
+                transform.TransformDirection(vector) * force,
                 ForceMode.Impulse);
         }
     }

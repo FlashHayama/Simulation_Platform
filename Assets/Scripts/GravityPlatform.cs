@@ -16,11 +16,11 @@ public class GravityPlatform : MonoBehaviour
         PlayerGravity player = other.GetComponentInChildren<PlayerGravity>();
         if (other.tag == "Player")
         {
-            player.gravityDirection = direction;
-            player.changeSpeed = Speed;
-            player.gravityForce = force;
-            player.GetComponent<PlayerJump>().catchForce = player.gravityForce / 90;
-            player.rotation = Quaternion.Euler(rot);
+            player.GravityDirection = direction;
+            player.ChangeSpeed = Speed;
+            player.GravityForce = force;
+            player.GetComponent<PlayerJump>().CatchForce = player.GravityForce / 90;
+            player.Rotation = Quaternion.Euler(rot);
         }
     }
 }

@@ -4,16 +4,15 @@ using UnityEngine;
 
 public class PlayerSong : MonoBehaviour
 {
+    [SerializeField] AudioClip[] stepSong = new AudioClip[4];
+    [SerializeField] AudioClip jumpSong,landSong;
+    [SerializeField] AudioSource source;
+
     int rand;
-    [SerializeField]
-    AudioClip[] stepSong = new AudioClip[4];
-    [SerializeField]
-    AudioClip jumpSong,landSong;
-    [SerializeField]
-    AudioSource source;
+
     public void PlayStep()
     {
-        if (GetComponent<PlayerRay>().canJump)
+        if (GetComponent<PlayerRay>().CanJump)
         {
             rand = Random.Range(0, 3);
             source.clip = stepSong[rand];

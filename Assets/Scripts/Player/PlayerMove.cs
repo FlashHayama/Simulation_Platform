@@ -4,11 +4,13 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float walkSpeed = 5f;
-    public float runSpeed = 10f;
+    [SerializeField] private float walkSpeed = 5f;
+    [SerializeField] private float runSpeed = 10f;
 
-    public float rotSpeedX = 100f;
-    public float rotSpeedY = 100f;
+    [SerializeField] private float rotSpeedX = 100f;
+    [SerializeField] private float rotSpeedY = 100f;
+
+    [SerializeField] private bool velocity = false;
 
     public Camera myCamera;
 
@@ -17,6 +19,13 @@ public class PlayerMove : MonoBehaviour
     float yMaxLimit = 70.0f;
 
     private GameObject cont;
+
+    public float WalkSpeed { get => walkSpeed; set => walkSpeed = value; }
+    public float RunSpeed { get => runSpeed; set => runSpeed = value; }
+    public float RotSpeedX { get => rotSpeedX; set => rotSpeedX = value; }
+    public float RotSpeedY { get => rotSpeedY; set => rotSpeedY = value; }
+    public bool Velocity { get => velocity; }
+
     private void Start()
     {
         cont = GetComponent<PlayerController>().cont;
@@ -27,20 +36,34 @@ public class PlayerMove : MonoBehaviour
     /// <param name="Direction">X,Y,Z</param>
     public void Move(Vector3 Direction)
     {
-        Debug.Log("canforward = " + GetComponent<PlayerRay>().canForward);
-        if (!GetComponent<PlayerRay>().canForward && Input.GetAxis("Vertical") > 0) Direction.z = 0f;
-
-        cont.transform.Translate(transform.TransformDirection(Direction) * Time.fixedDeltaTime,Space.World);
+        if (!GetComponent<PlayerRay>().CanForward && Input.GetAxis("Vertical") > 0) Direction.z = 0f;
+        //if (!velocity)
+        //{
+            cont.transform.Translate(transform.TransformDirection(Direction) * Time.fixedDeltaTime, Space.World);
+        //}
+        //else
+        //{
+            //Direction = transform.TransformDirection(Direction);
+            //Direction.y = transform.TransformDirection(cont.GetComponent<Rigidbody>().velocity).y;
+            //cont.GetComponent<Rigidbody>().velocity = (Direction * Time.deltaTime );
+        //}
     }
     public void LookHorizon(float horizontal)
     {
-        gameObject.transform.Rotate(Vector3.up, horizontal * rotSpeedX,Space.Self);
+        gameObject.transform.Rotate(Vector3.up, horizontal * RotSpeedX,Space.Self);
     }
     public void LookVertical(float vertical)
     {
-        yRot += vertical * rotSpeedY;
+        yRot += vertical * RotSpeedY;
         yRot = Mathf.Clamp(yRot, yMinLimit, yMaxLimit);
         myCamera.transform.localEulerAngles = new Vector3(-yRot, 0);
-        //Debug.Log(yRot);
     }
+    /*public IEnumerator ForwardCatch()
+    {
+        while (!GetComponent<PlayerRay>().canJump)
+        {
+            cont.transform.Translate(transform.TransformDirection(Vector3.forward * walkSpeed * Time.fixedDeltaTime), Space.World);
+            yield return new WaitForSeconds(Time.fixedDeltaTime);
+        }      
+    }*/
 }

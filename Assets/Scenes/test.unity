@@ -989,6 +989,7 @@ MonoBehaviour:
   runSpeed: 10
   rotSpeedX: 100
   rotSpeedY: 100
+  velocity: 0
   myCamera: {fileID: 963194227}
 --- !u!114 &393170714
 MonoBehaviour:
@@ -1019,6 +1020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cont: {fileID: 2009743523}
+  lock_running: 1
 --- !u!95 &393170717
 Animator:
   serializedVersion: 3

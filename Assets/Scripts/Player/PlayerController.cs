@@ -4,38 +4,66 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField] private bool is_run = false;
+    [SerializeField] private bool lock_running = true;
+
     public GameObject cont;
     float mult;
+
+    private PlayerJump jump;
+    private PlayerRay ray;
+    
+    public bool Is_run { get => is_run; }
+
     private void Start()
     {
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        jump = GetComponent<PlayerJump>();
+        ray = GetComponent<PlayerRay>();
     }
     private void FixedUpdate()
     {
-        if(GetComponent<PlayerRay>().canMove)
+        if(ray.CanMove)
         {
             GetComponent<PlayerMove>().Move(new Vector3(Input.GetAxis("Horizontal") * mult, 0, Input.GetAxis("Vertical") * mult));
         }
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetButtonDown("Jump"))
         {
-            //Debug.Log("jump =" + canJump);
-            GetComponent<PlayerJump>().Jump(GetComponent<PlayerJump>().jumpForce, GetComponent<PlayerRay>().canJump);
-            GetComponent<PlayerJump>().Jump(GetComponent<PlayerJump>().catchForce, GetComponent<PlayerRay>().canCatch);
+            jump.Jump(jump.JumpForce, ray.CanJump,Vector3.up);
+            jump.Jump(jump.CatchForce, ray.CanCatch,Vector3.up);
         }
         GetComponent<PlayerMove>().LookHorizon(Input.GetAxis("Mouse X") * Time.deltaTime);
         GetComponent<PlayerMove>().LookVertical(Input.GetAxis("Mouse Y") * Time.deltaTime);
-        
-        if (Input.GetKey(KeyCode.LeftShift) && Input.GetAxis("Vertical") > 0)
+
+        if(Input.GetKeyDown(KeyCode.LeftShift) && lock_running)
         {
-            mult = GetComponent<PlayerMove>().runSpeed;
+            is_run = !is_run;
+        }
+        else if(Input.GetKey(KeyCode.LeftShift) && !lock_running)
+        {
+            is_run = true;
+        }
+        else if(!lock_running)
+        {
+            is_run = false;
+        }
+        if (Input.GetAxis("Vertical") == 0) 
+        { 
+            is_run = false; 
+        }
+        
+        if (is_run && Input.GetAxis("Vertical") > 0)
+        {
+            mult = GetComponent<PlayerMove>().RunSpeed;
         }
         else
         {
-            mult = GetComponent<PlayerMove>().walkSpeed;
+            mult = GetComponent<PlayerMove>().WalkSpeed;
         }
-    }   
+    }
+    
 }

@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class PlayerGravity : MonoBehaviour
 {
-    public float gravityForce = 981f;
-    public float changeSpeed = 2f;
-    public Quaternion rotation = Quaternion.identity;
-    public Vector3 gravityDirection = Vector3.down;
+    [SerializeField] private float gravityForce = 981f;
+    [SerializeField] private float changeSpeed = 2f;
+    [SerializeField] private Quaternion rotation = Quaternion.identity;
+    [SerializeField] private Vector3 gravityDirection = Vector3.down;
 
     private GameObject cont;
+
+    public float GravityForce { get => gravityForce; set => gravityForce = value; }
+    public float ChangeSpeed { get => changeSpeed; set => changeSpeed = value; }
+    public Quaternion Rotation { get => rotation; set => rotation = value; }
+    public Vector3 GravityDirection { get => gravityDirection; set => gravityDirection = value; }
 
     private void Start()
     {
@@ -17,17 +22,20 @@ public class PlayerGravity : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        cont.GetComponent<Rigidbody>().AddForce(
-            gravityDirection * gravityForce * Time.fixedDeltaTime, 
-            ForceMode.Force);
+        //if (!GetComponent<PlayerRay>().canJump)
+        //{
+            cont.GetComponent<Rigidbody>().AddForce(
+                GravityDirection * GravityForce * Time.fixedDeltaTime,
+                ForceMode.Force);
+        //}
 
         Quaternion quaternion = Quaternion.Lerp(
             cont.transform.rotation,
             /*Quaternion.FromToRotation(
                  Vector3.down,
                  gravityDirection),*/
-            rotation,
-            changeSpeed * Time.fixedDeltaTime);
+            Rotation,
+            ChangeSpeed * Time.fixedDeltaTime);
 
         
         //Debug.Log("rot" + quaternion.eulerAngles);
